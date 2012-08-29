@@ -1,0 +1,15 @@
+<table>
+
+{% for col in grid.columns %}
+	<th>{{ col.name|title|trans }}</th>
+{% endfor %}
+
+{% for data in grid.data %}
+	<tr>
+		{% for col in grid.columns %}
+			<td>{{ data[col.name]|raw }}</td>
+		{% endfor %}
+	</tr>
+{% endfor %}
+
+</table>
