@@ -3,9 +3,9 @@
 namespace CS\DataGridBundle\Util;
 
 class ArrayStack implements \ArrayAccess, \Countable, \Iterator {
-	
+
 	protected $_data;
-	
+
 	public function offsetExists($offset)
 	{
 		return isset($this->_data[$offset]);
@@ -13,7 +13,22 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator {
 
 	public function offsetGet($offset)
 	{
-		return $this->_data[$offset];
+	    if(is_int($offset))
+	    {
+	        return $this->_data[$offset];
+	    } else if(is_string($offset))
+	    {
+	        foreach($this->_data as $value)
+	        {
+	            if((string) $value === $offset)
+	            {
+	                return $value;
+	            }
+	        }
+	        return null;
+	    } else {
+	        return null;
+	    }
 	}
 
 	public function offsetSet($offset, $value)
@@ -22,19 +37,19 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator {
 		{
 			$offset = $this->_data ? max(array_keys($this->_data)) : 0;
 		}
-		
+
 		if(!is_int($offset))
 		{
 			throw new Exception('Offset must be a valid integer');
 		}
-		
+
 		if($this->offsetExists($offset))
 		{
 			do {
 				$offset++;
 			} while($this->offsetExists($offset));
 		}
-		
+
 		if(is_array($value))
 		{
 			foreach($value as $key => $value)
@@ -42,7 +57,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator {
 				$this[$key] = $value;
 			}
 		} else {
-		
+
 			$this->_data[$offset] = $value;
 		}
 	}
@@ -54,18 +69,18 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator {
 			unset($this->_data[$offset]);
 		}
 	}
-	
+
 	public function sort()
 	{
 		ksort($this->_data);
 		return $this;
 	}
-	
+
 	public function count()
 	{
 		return count($this->_data);
 	}
-	
+
 	public function next()
 	{
 		next($this->_data);
@@ -84,7 +99,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator {
 	public function valid()
 	{
 		$key = $this->key();
-		
+
 		return isset($this->_data[$key]);
 	}
 
