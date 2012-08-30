@@ -1,0 +1,26 @@
+{
+    "name": "customscripts/datagrid-bundle",
+    "type": "library",
+    "description": "DataGrid Bundle for Symfony2 Applications",
+    "keywords": [
+        "Data Grid",
+	"Grid",
+	"Data Grid bundle"
+    ],
+    "homepage": "http://customscripts.co.za",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pierre du Plessis",
+            "email": "info@customscripts.co.za"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-0": {
+            "CS": "src/"
+        }
+    }
+}
