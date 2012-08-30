@@ -42,7 +42,7 @@ class Row implements \ArrayAccess {
 		$object = $this->getItem();
 
 		$camelProp = $this->camelize($property);
-		$reflClass = new \ReflectionClass($object);
+		$reflClass = new \ReflectionObject($object);
 		$getter = 'get'.$camelProp;
 		$isser = 'is'.$camelProp;
 
@@ -51,13 +51,13 @@ class Row implements \ArrayAccess {
 				throw new Exception\PropertyAccessDeniedException(sprintf('Method "%s()" is not public in class "%s"', $getter, $reflClass->getName()));
 			}
 
-			return $object->$getter();
+			$value = $object->$getter();
 		} elseif ($reflClass->hasMethod($isser)) {
 			if (!$reflClass->getMethod($isser)->isPublic()) {
 				throw new Exception\PropertyAccessDeniedException(sprintf('Method "%s()" is not public in class "%s"', $isser, $reflClass->getName()));
 			}
 
-			return $object->$isser();
+			$value = $object->$isser();
 		} elseif ($reflClass->hasMethod('__get')) {
 			// needed to support magic method __get
 			return $object->$property;
@@ -66,12 +66,31 @@ class Row implements \ArrayAccess {
 				throw new Exception\PropertyAccessDeniedException(sprintf('Property "%s" is not public in class "%s". Maybe you should create the method "%s()" or "%s()"?', $property, $reflClass->getName(), $getter, $isser));
 			}
 
-			return $object->$property;
+			$value = $object->$property;
 		} elseif (property_exists($object, $property)) {
 			// needed to support \stdClass instances
-			return $object->$property;
+			$value = $object->$property;
 		} else {
 			throw new Exception\InvalidPropertyException(sprintf('Neither property "%s" nor method "%s()" nor method "%s()" exists in class "%s"', $property, $getter, $isser, $reflClass->getName()));
+		}
+
+		if(is_object($value))
+		{
+		    if($value instanceof \DateTime)
+		    {
+		        // TODO : update format to read from a central config
+		        return $value->format('Y-m-d');
+		    } else if(method_exists($value, '__toString'))
+		    {
+		        return (string) $value;
+		    } else {
+		        throw new Exception\NotValidException(sprintf('The value for %s in class %s needs to be an instance of the DateTime Object or should implement a __toString method', $property, $reflClass->getName()));
+		    }
+		} else if(is_string($value) || is_int($value))
+		{
+		    return $value;
+		} else {
+		    throw new Exception\NotValidException(sprintf('The value for %s in class %s needs to either return a string, DateTime Object, or object that implements a __toString method', $property, $reflClass->getName()));
 		}
 	}
 
