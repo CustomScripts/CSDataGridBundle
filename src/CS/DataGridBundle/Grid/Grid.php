@@ -55,7 +55,7 @@ class Grid {
 	 *
 	 * @return mixed
 	 */
-	public function getGridSource()
+	protected function getGridSource()
 	{
 		$grid = $this->getGrid();
 
@@ -82,6 +82,19 @@ class Grid {
 
 		$grid->setEntity($this->data);
 		return $this;
+	}
+
+	public function getName()
+	{
+	    if(method_exists($this->grid, 'getName'))
+	    {
+	        return $this->grid->getName();
+	    } elseif(method_exists($this->grid, '__toString'))
+	    {
+	        return (string) $this->grid;
+	    } else {
+	        throw new \Exception('The grid must have a getName or __toString method');
+	    }
 	}
 
 	public function fetchData()
