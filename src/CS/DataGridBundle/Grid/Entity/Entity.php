@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
- 
+
 namespace CS\DataGridBundle\Grid\Entity;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -34,10 +34,10 @@ abstract class Entity implements \Countable, \Iterator {
 	protected $data;
 
 	private $_position = 0;
-	
+
 	/**
 	 * Contains the data from the srouce
-	 * 
+	 *
 	 * @var mixed $source
 	 */
 	protected $source;
@@ -180,7 +180,7 @@ abstract class Entity implements \Countable, \Iterator {
 		//$items = $this->data->getItems();
 
 		//if(isset($items[$position]) && !empty($items[$position])){
-			
+
 			$row = new Row($this->data[$position]);
 
 			$row->setGrid($this->getGrid());
@@ -198,7 +198,7 @@ abstract class Entity implements \Countable, \Iterator {
 
 	public function count()
 	{
-		return count($this->data->getItems());
+		return count($this->data);
 	}
 
 	public function valid() {
