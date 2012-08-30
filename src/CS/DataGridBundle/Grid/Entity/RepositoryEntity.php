@@ -26,7 +26,7 @@ class RepositoryEntity extends Entity {
 	{
 		return $this->getMetadata()->table['name'];
 	}
-	
+
 	public function createQuery()
 	{
 		$table = $this->getAlias();
@@ -52,7 +52,7 @@ class RepositoryEntity extends Entity {
 	{
 		return $this->dql;
 	}
-	
+
 	public function getResult()
 	{
 		return $this->dql->getQuery()->getResult();
@@ -82,9 +82,28 @@ class RepositoryEntity extends Entity {
 		return $this->getEm()->getClassMetadata($this->getGrid()->getSource());
 	}
 
+	/**
+	 * Get all the columns for the cuurent entity
+	 * @see CS\DataGridBundle\Grid\Entity.Entity::getColumns()
+	 * @return array
+	 */
 	public function getColumns()
 	{
-		return $this->getMetadata()->getColumnNames();
+	    $columns = $this->getMetadata()->getColumnNames();
+	    $mappings = $this->getMetadata()->getAssociationMappings();
+
+	    if(count($mappings) > 0)
+	    {
+	        foreach($mappings as $col => $mapping)
+	        {
+	            if($mapping['type'] === \Doctrine\ORM\Mapping\ClassMetaData::ONE_TO_ONE || $mapping['type'] === \Doctrine\ORM\Mapping\ClassMetaData::MANY_TO_ONE)
+	            {
+	                $columns[] = $col;
+	            }
+	        }
+	    }
+
+		return $columns;
 	}
 
 	public function setRepository(EntityRepository $repository)
