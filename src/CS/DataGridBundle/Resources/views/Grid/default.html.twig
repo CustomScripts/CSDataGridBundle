@@ -1,15 +1,20 @@
-<table class="table table-borderd table-striped">
+{% if grid.data|length > 0 %}
 
-{% for col in grid.columns %}
-	<th>{{ col.name|title|trans }}</th>
-{% endfor %}
+    <table class="table table-borderd table-striped table-hover">
 
-{% for data in grid.data %}
-	<tr>
-		{% for col in grid.columns %}
-			<td>{{ data[col.name]|raw }}</td>
-		{% endfor %}
-	</tr>
-{% endfor %}
+    {% for col in grid.columns %}
+    	<th>{{ col.label|title|trans }}</th>
+    {% endfor %}
 
-</table>
+    {% for data in grid.data %}
+    	<tr>
+		    {% for col in grid.columns if data[col.name] is defined %}
+			    <td>{{ data[col.name]|raw }}</td>
+		    {% endfor %}
+	    </tr>
+    {% endfor %}
+
+    </table>
+{% else %}
+    <h3>{{ 'No %s found'|trans|replace({'%s' : grid.name}) }}</h3>
+{% endif %}

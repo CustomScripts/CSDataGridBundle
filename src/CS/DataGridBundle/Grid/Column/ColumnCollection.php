@@ -4,40 +4,56 @@ namespace CS\DataGridBundle\Grid\Column;
 
 use CS\DataGridBundle\Util\ArrayStack;
 
-class ColumnCollection extends ArrayStack {
-	
-	public function add($name, $priority = 0)
+class ColumnCollection extends ArrayStack  {
+
+	public function add($label, $priority = 0)
 	{
-		$this->_data[$priority] = new Column($name);
+		$this->_data[$priority] = new Column($label);
+
+		return $this;
 	}
-	
-	public function remove($name)
+
+	/**
+	 * Removes a column from from the grid
+	 *
+	 * @param mixed $columns
+	 */
+	public function remove($columns)
 	{
+	    $columns = is_array($columns) ? $columns : arraya($columns);
+
 		if(count($this->_data) > 0)
 		{
 			foreach($this->_data as $key => $data)
 			{
-				if($data->getName() === $name)
-				{
-					unset($this->_data[$key]);
-				}
+			    foreach($columns as $label)
+			    {
+				    if(strtolower($data->getLabel()) === strtolower($label))
+				    {
+    					unset($this->_data[$key]);
+    				}
+			    }
 			}
 		}
+
+		return $this;
 	}
-	
-	public function move($name, $position)
+
+	public function move($label, $position)
 	{
 		if(count($this->_data) > 0)
 		{
 			foreach($this->_data as $key => $data)
 			{
-				if($data->getName() === $name)
+				if(strtolower($data->getLabel()) === strtolower($label))
 				{
 					unset($this->_data[$key]);
 					$this->_data[$position] = $data;
 				}
 			}
 		}
+
+		return $this;
 	}
 
 	public function addRecursive($data = array())
@@ -49,5 +65,7 @@ class ColumnCollection extends ArrayStack {
 				$this->add($column, $key);
 			}
 		}
+
+		return $this;
 	}
 }
