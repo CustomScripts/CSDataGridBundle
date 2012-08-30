@@ -21,46 +21,46 @@ use JMS\DiExtraBundle\Annotation as DI;
  * @DI\Service("grid")
  */
 class Grid {
-	
+
 	/**
 	 * An instance of the service container
-	 * 
+	 *
 	 * @var ContainerInterface $container
 	 * @DI\Inject("service_container")
 	 */
 	public $container;
-	
+
 	/**
 	 * An instance of the current grid
-	 * 
+	 *
 	 * @var GridInterface $grid
 	 */
 	protected $grid;
 
 	/**
 	 * The entity object that contains the data
-	 * 
+	 *
 	 * @var Entity $data
 	 */
 	protected $data;
 
 	public function create(GridInterface $grid = null)
 	{
-		$this->setGrid($grid)
+		return $this->setGrid($grid)
 			->getGridSource();
 	}
-	
+
 	/**
 	 * Gets the source for the grid (array, doctrine entity or QueryBuilder)
-	 * 
+	 *
 	 * @return mixed
 	 */
 	public function getGridSource()
 	{
 		$grid = $this->getGrid();
-		
+
 		$source = $grid->getSource();
-		
+
 		switch(gettype($source))
 		{
 			case 'string':
@@ -74,12 +74,12 @@ class Grid {
 			case 'array':
 				$this->data = new Entity\ArrayEntity($source, $grid);
 			break;
-			
+
 			default:
 				throw new \Exception(sprintf('%s must have a getSource() method that return one of string|array|object', get_class($grid))); // TODO: create custom exception class
 			break;
 		}
-		
+
 		$grid->setEntity($this->data);
 		return $this;
 	}
@@ -99,9 +99,9 @@ class Grid {
 	public function setGrid(GridInterface $grid)
 	{
 		$this->grid = $grid;
-		
+
 		//$grid->setContainer($this->getContainer());
-		
+
 		return $this;
 	}
 
@@ -114,17 +114,17 @@ class Grid {
 	{
 		return $this->container;
 	}
-	
+
 	public function columns()
 	{
 		return $this->grid->columns();
 	}
-	
+
 	public function data()
 	{
 		return $this->data->fetch();
 	}
-	
+
 	/*public function get($key)
 	{
 		return $this->getContainer()->get($key);
