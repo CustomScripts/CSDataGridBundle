@@ -4,8 +4,13 @@ namespace CS\DataGridBundle\Grid\Column;
 
 use CS\DataGridBundle\Util\ArrayStack;
 
-class ColumnCollection extends ArrayStack  {
-
+class ColumnCollection extends ArrayStack
+{
+    /**
+     * Adds a new Column to the collection
+     * @param string $label
+     * @param integer $priority
+     */
 	public function add($label, $priority = 0)
 	{
 		$this->_data[$priority] = new Column($label);
