@@ -33,7 +33,8 @@ class RepositoryEntity extends Entity {
 
 		$this->dql = $this->getRepository()->createQueryBuilder($table);
 
-		$order = $this->getGrid()->order;
+		// TODO : implement the sort order for row data
+		/*$order = $this->getGrid()->order;
 
 		if($order)
 		{
@@ -43,7 +44,7 @@ class RepositoryEntity extends Entity {
 			}
 
 			$this->dql->orderBy($order);
-		}
+		}*/
 
 		return $this;
 	}
