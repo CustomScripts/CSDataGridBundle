@@ -113,14 +113,14 @@ class Row implements \ArrayAccess {
 
 	public function offsetGet($offset)
 	{
-		if($this->getGrid()->hasCallback($offset))
-		{
-			$callback = $this->getGrid()->getCallback($offset);
+	    $cols = $this->getGrid()->columns();
 
-			$value = $callback($this->getItem());
-		} else {
-			$value = $this->getValue($offset);
-		}
+	    if($cols[$offset]->hasCallback())
+	    {
+	        $value = $cols[$offset]->callback($this->getItem());
+	    } else {
+	        $value = $this->getValue($offset);
+	    }
 
 		return $value;
 	}
