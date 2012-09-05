@@ -105,7 +105,8 @@ abstract class Entity implements \Countable, \Iterator {
 	{
 		$query = $this->getData();
 
-		if($this->getGrid()->paginate)
+		// TODO: implement pagination
+		/*if($this->getGrid()->paginate)
 		{
 			$paginator = $this->getContainer()->get('knp_paginator');
 			$this->data = $paginator->paginate(
@@ -115,7 +116,9 @@ abstract class Entity implements \Countable, \Iterator {
 			);
 		} else {
 			$this->data = $this->getResult();
-		}
+		}*/
+
+		$this->data = $this->getResult();
 
 		return $this;
 	}
