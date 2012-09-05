@@ -1,5 +1,37 @@
-{% if grid.data|length > 0 %}
+{% macro attributes(attrs) %}
+    {% for key,attr in attrs %}
+        {{ key }}="{{ attr }}"
+    {% endfor %}
+{% endmacro %}
 
+{% if grid.actions|length %}
+    <div class="actions pull-right">
+        {% for action in grid.actions %}
+            <a {{ _self.attributes(action.attributes) }} href="{{ action.action is not sameas('#') ? path(action.action) : '#' }}">{% if action['icon'] %}<i class="{{ action['icon'] }}"></i> {% endif %}{{ action.label|trans }}</a>
+
+            {% if action.events|length %}
+                <script type="text/javascript">
+
+                    Loader.add(function(){
+                        $('#{{ action.attributes.id }}')
+                            {% for event, content in action.events %}
+                                .on("{{ event }}", function(){
+                                                    	{{ content }}
+                                })
+                            {% endfor %}
+                         });
+
+                </script>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <br class="clearfix" />
+    <br class="clearfix" />
+
+{% endif %}
+
+{% if grid.data|length > 0 %}
     <table class="table table-bordered table-striped table-hover">
 
     {% for col in grid.columns %}

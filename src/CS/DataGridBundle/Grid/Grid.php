@@ -133,6 +133,11 @@ class Grid {
 		return $this->grid->columns();
 	}
 
+	public function actions()
+	{
+	    return $this->grid->actions();
+	}
+
 	public function data()
 	{
 		return $this->data->fetch();
