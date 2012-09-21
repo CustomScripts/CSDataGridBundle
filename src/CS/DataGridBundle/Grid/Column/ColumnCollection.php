@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the CSDataGridBundle package.
+ *
+ * (c) Pierre du Plessis <info@customscripts.co.za>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace CS\DataGridBundle\Grid\Column;
 
 use CS\DataGridBundle\Util\ArrayStack;
@@ -44,6 +53,13 @@ class ColumnCollection extends ArrayStack
 		return $this;
 	}
 
+	/**
+	 * Moves a column to another position
+	 *
+	 * @param string $label
+	 * @param integer $position
+	 * @return ColumnCollection
+	 */
 	public function move($label, $position)
 	{
 		if(count($this->_data) > 0)
@@ -61,6 +77,12 @@ class ColumnCollection extends ArrayStack
 		return $this;
 	}
 
+	/**
+	 * Adds columns recursively
+	 *
+	 * @param array $data
+	 * @return ColumnCollection
+	 */
 	public function addRecursive($data = array())
 	{
 		if(is_array($data) && !empty($data))

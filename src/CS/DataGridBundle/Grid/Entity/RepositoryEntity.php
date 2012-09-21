@@ -20,13 +20,23 @@ use CS\DataGridBundle\Grid\GridInterface;
 use CS\DataGridBundle\Grid\Filter\FilterCollection;
 use CS\DataGridBundle\Grid\Row;
 
-class RepositoryEntity extends Entity {
-
+class RepositoryEntity extends Entity
+{
+	/**
+	 * get the alias of the table
+	 *
+	 * @return string
+	 */
 	public function getAlias()
 	{
 		return $this->getMetadata()->table['name'];
 	}
 
+	/**
+	 * (non-PHPdoc)
+	 *
+	 * @see CS\DataGridBundle\Grid\Entity.Entity::createQuery()
+	 */
 	public function createQuery()
 	{
 		$table = $this->getAlias();

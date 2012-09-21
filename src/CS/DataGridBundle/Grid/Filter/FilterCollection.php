@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the CSDataGridBundle package.
+ *
+ * (c) Pierre du Plessis <info@customscripts.co.za>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace CS\DataGridBundle\Grid\Filter;
 
 use CS\DataGridBundle\Grid\Filter\Filter;
@@ -10,7 +19,8 @@ class FilterCollection implements \Countable, \Iterator {
 
 	public function addFilter()
 	{
-		$this->filters[] = call_user_func_array('A1L\CoreBundle\Grid\Filter\Filter::construct', func_get_args());
+
+		$this->filters[] = call_user_func_array(array('Filter', 'construct'), func_get_args());
 	}
 
 	public function count()

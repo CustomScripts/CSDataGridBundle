@@ -1,16 +1,42 @@
 <?php
 
+/*
+ * This file is part of the CSDataGridBundle package.
+ *
+ * (c) Pierre du Plessis <info@customscripts.co.za>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace CS\DataGridBundle\Util;
+
+use CS\DataGridBundle\Exception;
 
 class ArrayStack implements \ArrayAccess, \Countable, \Iterator {
 
-	protected $_data;
+	/**
+	 * An array containing the data of the current stack
+	 *
+	 * @var array $_data
+	 */
+	protected $_data = array();
 
+	/**
+	 * (non-phpdoc)
+	 *
+	 * @param mixed $offset
+	 */
 	public function offsetExists($offset)
 	{
 		return isset($this->_data[$offset]);
 	}
 
+	/**
+	 * (non-phpdoc)
+	 *
+	 * @param mixed $offset
+	 */
 	public function offsetGet($offset)
 	{
 	    if(is_int($offset))
@@ -31,6 +57,13 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator {
 	    }
 	}
 
+	/**
+	 * (non-phpdoc)
+	 *
+	 * @param mixed $offset
+	 * @param mixed $value
+	 * @throws Exception\InvalidArgumentException
+	 */
 	public function offsetSet($offset, $value)
 	{
 		if($offset === null)
@@ -40,7 +73,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator {
 
 		if(!is_int($offset))
 		{
-			throw new Exception('Offset must be a valid integer');
+			throw new Exception\InvalidArgumentException('Offset must be a valid integer');
 		}
 
 		if($this->offsetExists($offset))
@@ -62,6 +95,11 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator {
 		}
 	}
 
+	/**
+	 * (non-phpdoc)
+	 *
+	 * @param mixed $offset
+	 */
 	public function offsetUnset($offset)
 	{
 		if($this->offsetExists($offset))
@@ -70,32 +108,60 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator {
 		}
 	}
 
+	/**
+	 * Sorts the data by key
+	 *
+	 * @return ArrayStack
+	 */
 	public function sort()
 	{
 		ksort($this->_data);
 		return $this;
 	}
 
+	/**
+	 * (non-phpdoc)
+	 *
+	 * @return integer
+	 */
 	public function count()
 	{
 		return count($this->_data);
 	}
 
+	/**
+	 * (non-phpdoc)
+	 */
 	public function next()
 	{
-		next($this->_data);
+		return next($this->_data);
 	}
 
+	/**
+	 * (non-phpdoc)
+	 *
+	 * @return mixed
+	 */
 	public function current()
 	{
 		return $this->_data[$this->key()];
 	}
 
+	/**
+	 * (non-phpdoc)
+	 *
+	 * @return mixed
+	 */
 	public function key()
 	{
 		return key($this->_data);
 	}
 
+	/**
+	 * (non-phpdoc)
+	 *
+	 * @return boolean
+	 */
 	public function valid()
 	{
 		$key = $this->key();
@@ -103,6 +169,9 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator {
 		return isset($this->_data[$key]);
 	}
 
+	/**
+	 * (non-phpdoc)
+	 */
 	public function rewind()
 	{
 		reset($this->_data);
