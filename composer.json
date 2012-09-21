@@ -1,6 +1,5 @@
 {
     "name": "customscripts/datagrid-bundle",
-    "type": "library",
     "description": "DataGrid Bundle for Symfony2 Applications",
     "keywords": [
         "Data Grid", "Grid", "Data Grid bundle"
