@@ -16,12 +16,12 @@ use CS\DataGridBundle\Grid\Action\Action;
 
 class ActionCollection extends ArrayStack
 {
-	/**
-	 * Adds a new action to the collection
-	 *
-	 * @param Action $action
-	 * @return ActionCollection
-	 */
+    /**
+     * Adds a new action to the collection
+     *
+     * @param  Action           $action
+     * @return ActionCollection
+     */
     public function add(Action $action)
     {
         $this->_data[] = $action;

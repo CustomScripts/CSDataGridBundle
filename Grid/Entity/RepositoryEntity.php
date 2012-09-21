@@ -11,126 +11,117 @@
 
 namespace CS\DataGridBundle\Grid\Entity;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Doctrine\Orm\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
 use CS\DataGridBundle\Grid\Entity\Entity;
-use CS\DataGridBundle\Grid\GridInterface;
-use CS\DataGridBundle\Grid\Filter\FilterCollection;
 use CS\DataGridBundle\Grid\Row;
 
 class RepositoryEntity extends Entity
 {
-	/**
-	 * get the alias of the table
-	 *
-	 * @return string
-	 */
-	public function getAlias()
-	{
-		return $this->getMetadata()->table['name'];
-	}
+    /**
+     * get the alias of the table
+     *
+     * @return string
+     */
+    public function getAlias()
+    {
+        return $this->getMetadata()->table['name'];
+    }
 
-	/**
-	 * (non-PHPdoc)
-	 *
-	 * @see CS\DataGridBundle\Grid\Entity.Entity::createQuery()
-	 */
-	public function createQuery()
-	{
-		$table = $this->getAlias();
+    /**
+     * (non-PHPdoc)
+     *
+     * @see CS\DataGridBundle\Grid\Entity.Entity::createQuery()
+     */
+    public function createQuery()
+    {
+        $table = $this->getAlias();
 
-		$this->dql = $this->getRepository()->createQueryBuilder($table);
+        $this->dql = $this->getRepository()->createQueryBuilder($table);
 
-		// TODO : implement the sort order for row data
-		/*$order = $this->getGrid()->order;
+        // TODO : implement the sort order for row data
+        /*$order = $this->getGrid()->order;
 
-		if($order)
-		{
-			if(!stripos($order, '.'))
-			{
-				$order = $table.'.'.$order;
-			}
+        if ($order) {
+            if (!stripos($order, '.')) {
+                $order = $table.'.'.$order;
+            }
 
-			$this->dql->orderBy($order);
-		}*/
+            $this->dql->orderBy($order);
+        }*/
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getData()
-	{
-		return $this->dql;
-	}
+    public function getData()
+    {
+        return $this->dql;
+    }
 
-	public function getResult()
-	{
-		return $this->dql->getQuery()->getResult();
-	}
+    public function getResult()
+    {
+        return $this->dql->getQuery()->getResult();
+    }
 
-	/*public function fetch()
-	{
-		$query = $this->getDql()->getQuery();
+    /*public function fetch()
+    {
+        $query = $this->getDql()->getQuery();
 
-		if($this->getGrid()->paginate)
-		{
-			$paginator = $this->getContainer()->get('knp_paginator');
-			$this->data = $paginator->paginate(
-					$query,
-					$this->getContainer()->get('request')->query->get('page', 1),
-					$this->getGrid()->paginate_limit
-			);
-		} else {
-			$this->data = $query->getResult();
-		}
+        if ($this->getGrid()->paginate) {
+            $paginator = $this->getContainer()->get('knp_paginator');
+            $this->data = $paginator->paginate(
+                    $query,
+                    $this->getContainer()->get('request')->query->get('page', 1),
+                    $this->getGrid()->paginate_limit
+            );
+        } else {
+            $this->data = $query->getResult();
+        }
 
-		return $this;
-	}*/
+        return $this;
+    }*/
 
-	public function getMetadata()
-	{
-		return $this->getEm()->getClassMetadata($this->getGrid()->getSource());
-	}
+    public function getMetadata()
+    {
+        return $this->getEm()->getClassMetadata($this->getGrid()->getSource());
+    }
 
-	/**
-	 * Get all the columns for the cuurent entity
-	 * @see CS\DataGridBundle\Grid\Entity.Entity::getColumns()
-	 * @return array
-	 */
-	public function getColumns()
-	{
-	    $columns = $this->getMetadata()->getColumnNames();
-	    $mappings = $this->getMetadata()->getAssociationMappings();
+    /**
+     * Get all the columns for the cuurent entity
+     * @see CS\DataGridBundle\Grid\Entity.Entity::getColumns()
+     * @return array
+     */
+    public function getColumns()
+    {
+        $columns = $this->getMetadata()->getColumnNames();
+        $mappings = $this->getMetadata()->getAssociationMappings();
 
-	    if(count($mappings) > 0)
-	    {
-	        foreach($mappings as $col => $mapping)
-	        {
-	            if($mapping['type'] === \Doctrine\ORM\Mapping\ClassMetaData::ONE_TO_ONE || $mapping['type'] === \Doctrine\ORM\Mapping\ClassMetaData::MANY_TO_ONE)
-	            {
-	                $columns[] = $col;
-	            }
-	        }
-	    }
+        if (count($mappings) > 0) {
+            foreach ($mappings as $col => $mapping) {
+                if ($mapping['type'] === \Doctrine\ORM\Mapping\ClassMetaData::ONE_TO_ONE || $mapping['type'] === \Doctrine\ORM\Mapping\ClassMetaData::MANY_TO_ONE) {
+                    $columns[] = $col;
+                }
+            }
+        }
 
-		return $columns;
-	}
+        return $columns;
+    }
 
-	public function setRepository(EntityRepository $repository)
-	{
-		$this->repository = $repository;
-		return $this;
-	}
+    public function setRepository(EntityRepository $repository)
+    {
+        $this->repository = $repository;
 
-	public function getRepository()
-	{
-		return $this->getEm()->getRepository($this->getSource());
-	}
+        return $this;
+    }
 
-	public function getEm()
-	{
-		return $this->getContainer()->get('doctrine.orm.entity_manager');
-	}
+    public function getRepository()
+    {
+        return $this->getEm()->getRepository($this->getSource());
+    }
+
+    public function getEm()
+    {
+        return $this->getContainer()->get('doctrine.orm.entity_manager');
+    }
 
 }

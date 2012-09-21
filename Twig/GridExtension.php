@@ -14,23 +14,23 @@ use CS\DataGridBundle\Grid\Grid;
  */
 class GridExtension extends Twig_Extension
 {
-	/**
-	 * @DI\Inject("service_container")
-	 */
-	public $container;
+    /**
+     * @DI\Inject("service_container")
+     */
+    public $container;
 
-	public function getFunctions()
-	{
-		return array('grid' => new Twig_Function_Method($this, 'renderGrid', array("is_safe" => array("html"))));
-	}
+    public function getFunctions()
+    {
+        return array('grid' => new Twig_Function_Method($this, 'renderGrid', array("is_safe" => array("html"))));
+    }
 
-	public function renderGrid(Grid $grid)
-	{
-		return $this->container->get('templating')->render('CSDataGridBundle:Grid:default.html.twig', array('grid' => $grid));
-	}
+    public function renderGrid(Grid $grid)
+    {
+        return $this->container->get('templating')->render('CSDataGridBundle:Grid:default.html.twig', array('grid' => $grid));
+    }
 
-	public function getName()
-	{
-		return 'cs.twig.grid';
-	}
+    public function getName()
+    {
+        return 'cs.twig.grid';
+    }
 }

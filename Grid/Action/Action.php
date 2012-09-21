@@ -13,8 +13,8 @@ namespace CS\DataGridBundle\Grid\Action;
 
 use CS\DataGridBundle\Exception;
 
-class Action implements \ArrayAccess {
-
+class Action implements \ArrayAccess
+{
     /**
      * @var string The label of the action
      */
@@ -71,7 +71,7 @@ class Action implements \ArrayAccess {
     /**
      * Creates a new action
      *
-     * @param string $label the label of the action
+     * @param  string $label the label of the action
      * @return Action
      */
     public function __construct($label)
@@ -88,8 +88,7 @@ class Action implements \ArrayAccess {
      */
     public function showWhenEmpty($empty = false)
     {
-        if($empty && ($this->multiple_row || $this->require_row))
-        {
+        if ($empty && ($this->multiple_row || $this->require_row)) {
             throw new \Exception(sprintf('The action "%s" cannot be shown when it requires data from a row', $this->label));
         }
 
@@ -99,13 +98,12 @@ class Action implements \ArrayAccess {
     /**
      * Sets the action to only apply if a row is selected
      *
-     * @param boolean $multiple allow this action to be applied to mutiple rows
+     * @param  boolean $multiple allow this action to be applied to mutiple rows
      * @return Action
      */
     public function requireRow($multiple = false)
     {
-        if($this->show_when_empty)
-        {
+        if ($this->show_when_empty) {
             throw new \Exception(sprintf('The action "%s" cannot require a row when it is shown with no data', $this->label));
         }
 
@@ -120,7 +118,7 @@ class Action implements \ArrayAccess {
      * Sets the message for the confirmation box
      * NOT IMPLEMENTED
      *
-     * @param string $message
+     * @param  string $message
      * @return Action
      */
     public function confirm($message = '')
@@ -133,13 +131,12 @@ class Action implements \ArrayAccess {
     /**
      * Sets the class of the icon to use on the action
      *
-     * @param string $class
+     * @param  string $class
      * @return Action
      */
     public function icon($class = null)
     {
-        if(!is_null($class))
-        {
+        if (!is_null($class)) {
             $this->icon = ((substr($class, 0, 4) !== 'icon') ? 'icon-' : '').$class;
         }
 
@@ -149,7 +146,7 @@ class Action implements \ArrayAccess {
     /**
      * Sets the attributes for the current actions
      *
-     * @param array $attributes
+     * @param  array  $attributes
      * @return Action
      */
     public function attributes($attributes = array())
@@ -162,7 +159,7 @@ class Action implements \ArrayAccess {
     /**
      * Sets the path for the action
      *
-     * @param string $action
+     * @param  string $action
      * @return Action
      */
     public function setAction($action = '#')
@@ -175,18 +172,16 @@ class Action implements \ArrayAccess {
     /**
      * Handles al the events set for the action
      *
-     * @param string $method
-     * @param array $args
+     * @param  string $method
+     * @param  array  $args
      * @return Action
      */
     public function __call($method, $args)
     {
-        if(substr(strtolower($method), 0, 2) === 'on')
-        {
+        if (substr(strtolower($method), 0, 2) === 'on') {
             $event = substr(strtolower($method), 2);
 
-            if(!isset($args[0]) || gettype($args[0]) !== 'string')
-            {
+            if (!isset($args[0]) || gettype($args[0]) !== 'string') {
                 throw new Exception\InvalidArgumentException(sprintf('The first parameter for method %s in class %s must be a string', $method, get_class($this)));
             }
 
@@ -199,7 +194,7 @@ class Action implements \ArrayAccess {
     /**
      * (non-phpdoc)
      *
-     * @param mixed $offset
+     * @param  mixed   $offset
      * @return boolean
      */
     public function offsetExists($offset)
@@ -221,7 +216,7 @@ class Action implements \ArrayAccess {
     /**
      * (non-phpdoc)
      *
-     * @param mixed $offset
+     * @param  mixed $offset
      * @return mixed
      */
     public function offsetGet($offset)

@@ -11,6 +11,6 @@
 
 namespace CS\DataGridBundle\Exception;
 
-class InvalidArgumentException extends \InvalidArgumentException {
-
+class InvalidArgumentException extends \InvalidArgumentException
+{
 }
