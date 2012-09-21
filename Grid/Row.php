@@ -139,7 +139,7 @@ class Row implements \ArrayAccess
             } else {
                 throw new Exception\NotValidException(sprintf('The value for %s in class %s needs to be an instance of the DateTime Object or should implement a __toString method', $property, $reflClass->getName()));
             }
-        } elseif (is_string($value) || is_int($value)) {
+        } elseif (is_string($value) || is_int($value) || is_null($value)) {
             return $value;
         } else {
             throw new Exception\NotValidException(sprintf('The value for %s in class %s needs to either return a string, DateTime Object, or object that implements a __toString method', $property, $reflClass->getName()));
