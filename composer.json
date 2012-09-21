@@ -1,5 +1,5 @@
 {
-    "name": "customscripts/datagrid-bundle",
+    "name": "pierredup/datagrid-bundle",
     "description": "DataGrid Bundle for Symfony2 Applications",
     "keywords": [
         "Data Grid", "Grid", "Data Grid bundle"
