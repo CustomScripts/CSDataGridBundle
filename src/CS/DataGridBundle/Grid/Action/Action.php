@@ -11,7 +11,7 @@
 
 namespace CS\DataGridBundle\Grid\Action;
 
-use Gedmo\Exception\InvalidArgumentException;
+use CS\DataGridBundle\Exception;
 
 class Action implements \ArrayAccess {
 
@@ -186,7 +186,7 @@ class Action implements \ArrayAccess {
 
             if(!isset($args[0]) || gettype($args[0]) !== 'string')
             {
-                throw new \InvalidArgumentException(sprintf('The first parameter for method %s in class %s must be a string', $method, get_class($this)));
+                throw new Exception\InvalidArgumentException(sprintf('The first parameter for method %s in class %s must be a string', $method, get_class($this)));
             }
 
             $this->events[$event] = $args[0];
@@ -195,21 +195,44 @@ class Action implements \ArrayAccess {
         return $this;
     }
 
+    /**
+     * (non-phpdoc)
+     *
+     * @param mixed $offset
+     * @return boolean
+     */
     public function offsetExists($offset)
     {
         return property_exists($this, $offset);
     }
 
+    /**
+     * (non-phpdoc)
+     *
+     * @param mixed $offset
+     * @param mixed $value
+     */
     public function offsetSet($offset, $value)
     {
-        return $this->{$offset} = $value;
+        $this->{$offset} = $value;
     }
 
+    /**
+     * (non-phpdoc)
+     *
+     * @param mixed $offset
+     * @return mixed
+     */
     public function offsetGet($offset)
     {
         return $this->{$offset};
     }
 
+    /**
+     * (non-phpdoc)
+     *
+     * @param mixed $offset
+     */
     public function offsetUnset($offset)
     {
         $this->{$offset} = null;
