@@ -118,6 +118,7 @@ class Action implements \ArrayAccess {
 
     /**
      * Sets the message for the confirmation box
+     * NOT IMPLEMENTED
      *
      * @param string $message
      * @return Action

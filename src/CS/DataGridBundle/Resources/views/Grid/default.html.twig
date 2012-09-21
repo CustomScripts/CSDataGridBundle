@@ -16,7 +16,7 @@
                         $('#{{ action.attributes.id }}')
                             {% for event, content in action.events %}
                                 .on("{{ event }}", function(){
-                                                    	{{ content }}
+                                 	{{ content }}
                                 })
                             {% endfor %}
                          });
