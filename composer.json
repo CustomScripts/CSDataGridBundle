@@ -3,10 +3,9 @@
     "type": "library",
     "description": "DataGrid Bundle for Symfony2 Applications",
     "keywords": [
-        "Data Grid",
-	"Grid",
-	"Data Grid bundle"
+        "Data Grid", "Grid", "Data Grid bundle"
     ],
+    "type": "symfony-bundle",
     "homepage": "http://customscripts.co.za",
     "license": "MIT",
     "authors": [
