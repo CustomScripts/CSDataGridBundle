@@ -16,7 +16,7 @@ use CS\DataGridBundle\Grid\Entity\Entity;
 use CS\DataGridBundle\Grid\Column\ColumnCollection;
 use CS\DataGridBundle\Grid\Action\ActionCollection;
 
-abstract class BaseGrid implements GridInterface
+abstract class Base implements GridInterface
 {
     /**
      * Method to return the source for the data
