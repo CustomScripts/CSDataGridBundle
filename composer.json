@@ -1,10 +1,12 @@
 {
-    "name": "customscriptso/datagrid-bundle",
+    "name": "customscripts/datagrid-bundle",
+    "type": "symfony-bundle",
     "description": "DataGrid Bundle for Symfony2 Applications",
     "keywords": [
-        "Data Grid", "Grid", "Data Grid bundle"
+        "Data Grid",
+        "Grid",
+        "Data Grid bundle"
     ],
-    "type": "symfony-bundle",
     "homepage": "http://customscripts.co.za",
     "license": "MIT",
     "authors": [
@@ -15,12 +17,11 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "symfony/symfony": "2.1.*"
+        "customscripts/core-bundle": "dev-master*"
     },
     "autoload": {
         "psr-0": {
-            "CS\\DataGridBundle": ""
+            "CS": "src/"
         }
-    },
-    "target-dir": "CS/DataGridBundle"
+    }
 }
