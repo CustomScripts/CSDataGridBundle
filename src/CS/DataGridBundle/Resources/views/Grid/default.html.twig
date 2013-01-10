@@ -11,16 +11,12 @@
 
             {% if action.events|length %}
                 <script type="text/javascript">
-
-                    Loader.add(function(){
-                        $('#{{ action.attributes.id }}')
-                            {% for event, content in action.events %}
-                                .on("{{ event }}", function(){
-                                 	{{ content }}
-                                })
-                            {% endfor %}
-                         });
-
+					$('#{{ action.attributes.id }}')
+						{% for event, content in action.events %}
+							.on("{{ event }}", function(){
+								{{ content }}
+                            })
+                        {% endfor %}
                 </script>
             {% endif %}
         {% endfor %}
