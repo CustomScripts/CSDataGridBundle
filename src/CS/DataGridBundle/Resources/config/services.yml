@@ -1,3 +1,10 @@
 parameters:
-
+    cs_data_grid.twig.grid.class: CS\DataGridBundle\Twig\Extension\GridExtension
+    
 services:
+    cs_data_grid.twig.grid:
+         class: %cs_data_grid.twig.grid.class%
+         calls:
+             - [ setTemplating, [ @templating ] ]
+         tags:
+             - { name: twig.extension }
