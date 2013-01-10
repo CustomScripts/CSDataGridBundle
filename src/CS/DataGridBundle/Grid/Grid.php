@@ -15,20 +15,15 @@ use CS\DataGridBundle\Grid\GridInterface;
 use CS\DataGridBundle\Grid\Entity;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use JMS\DiExtraBundle\Annotation as DI;
 
-/**
- * @DI\Service("grid")
- */
 class Grid
 {
     /**
      * An instance of the service container
      *
      * @var ContainerInterface $container
-     * @DI\Inject("service_container")
      */
-    public $container;
+    protected $container;
 
     /**
      * An instance of the current grid
@@ -36,6 +31,16 @@ class Grid
      * @var GridInterface $grid
      */
     protected $grid;
+
+    /**
+     * Constructor
+     *
+     * @param ContainerInterface $container
+     */
+    public function __construct(ContainerInterface $container)
+    {
+    	$this->container = $container;
+    }
 
     /**
      * The entity object that contains the data
@@ -97,8 +102,6 @@ class Grid
 
     public function fetchData()
     {
-        var_dump('aa');
-        exit;
         $this->data
             ->applyFilters($this->filters())
             ->search()
