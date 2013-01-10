@@ -23,18 +23,7 @@ abstract class Base implements GridInterface
      *
      * @see CS\DataGridBundle\Grid.GridInterface::getSource()
      */
-    public function getSource(){}
-
-    /**
-     * (non-PHPdoc)
-     * @see CS\DataGridBundle\Grid.GridInterface::setSource()
-     */
-    public function setSource($source)
-    {
-        var_dump($source);
-        exit;
-        $this->source = $source;
-    }
+    abstract function getSource();
 
     /**
      * Sets the datasource entity to the current grid
