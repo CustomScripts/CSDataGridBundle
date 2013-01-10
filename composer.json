@@ -17,7 +17,7 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "customscripts/core-bundle": "dev-master*"
+        "customscripts/core-bundle": "dev-master"
     },
     "autoload": {
         "psr-0": {
