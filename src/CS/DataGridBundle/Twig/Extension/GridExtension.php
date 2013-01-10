@@ -12,15 +12,15 @@ class GridExtension extends Twig_Extension
     /**
      * @var ContainerInterface
      */
-    public $container;
+    protected $templating;
 
     /**
-     * Sets the templating instance
+     * Sets the container instance
      * @param ContainerInterface $container
      */
-    public function setTemplating($templating)
+    public function setTemplating(ContainerInterface $container)
     {
-    	$this->templating = $templating;
+    	$this->container = $container;
     }
 
     /**
@@ -40,7 +40,7 @@ class GridExtension extends Twig_Extension
      */
     public function renderGrid(Grid $grid)
     {
-        return $this->templating->render('CSDataGridBundle:Grid:default.html.twig', array('grid' => $grid));
+        return $this->container->get('templating')->render('CSDataGridBundle:Grid:default.html.twig', array('grid' => $grid));
     }
 
     /**

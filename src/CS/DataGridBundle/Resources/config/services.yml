@@ -6,7 +6,7 @@ services:
     cs_data_grid.twig.grid:
         class: %cs_data_grid.twig.grid.class%
         calls:
-            - [ setTemplating, [ @templating ] ]
+            - [ setTemplating, [ @service_container ] ]
         tags:
             - { name: twig.extension }
              
