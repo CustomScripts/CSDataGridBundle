@@ -180,7 +180,7 @@ class Row implements \ArrayAccess
      */
     public function offsetGet($offset)
     {
-        $cols = $this->getGrid()->columns();
+        $cols = $this->getGrid()->getColumns();
 
         if ($cols[$offset]->hasCallback()) {
             $value = $cols[$offset]->callback($this->getItem());

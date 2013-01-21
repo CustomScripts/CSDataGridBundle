@@ -58,6 +58,11 @@ class Grid
             ->getGridSource();
     }
 
+    public function getSource()
+    {
+    	return $this->grid->getSource();
+    }
+
     /**
      * Gets the source for the grid (array, doctrine entity or QueryBuilder)
      *
@@ -71,15 +76,15 @@ class Grid
 
         switch (gettype($source)) {
             case 'string':
-                $this->data = new Entity\RepositoryEntity($source, $grid, $this->getContainer());
+                $this->data = new Entity\RepositoryEntity($source, $this, $this->getContainer());
             break;
 
             case 'object':
-                $this->data = new Entity\QueryBuilderEntity($source, $grid);
+                $this->data = new Entity\QueryBuilderEntity($source, $this);
             break;
 
             case 'array':
-                $this->data = new Entity\ArrayEntity($source, $grid);
+                $this->data = new Entity\ArrayEntity($source, $this);
             break;
 
             default:

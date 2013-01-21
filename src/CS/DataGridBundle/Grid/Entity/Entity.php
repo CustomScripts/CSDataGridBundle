@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\Orm\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
-use CS\DataGridBundle\Grid\GridInterface;
+use CS\DataGridBundle\Grid\Grid;
 use CS\DataGridBundle\Grid\Filter\FilterCollection;
 use CS\DataGridBundle\Grid\Row;
 
@@ -42,7 +42,7 @@ abstract class Entity implements \Countable, \Iterator
      */
     protected $source;
 
-    public function __construct($source, GridInterface $grid, ContainerInterface $container)
+    public function __construct($source, Grid $grid, ContainerInterface $container)
     {
         $this->setSource($source)
             ->setContainer($container)
@@ -91,9 +91,7 @@ abstract class Entity implements \Countable, \Iterator
     {
         $search = $this->getContainer()->get('request')->get('search');
 
-        if (method_exists($this->getGrid(), 'getSearch') && $search) {
-            $this->getGrid()->getSearch($this->getData(), $search);
-        }
+        $this->getGrid()->getSearch($this->getData(), $search);
 
         return $this;
     }
@@ -165,7 +163,7 @@ abstract class Entity implements \Countable, \Iterator
         return $this->container;
     }
 
-    public function setGrid(GridInterface $grid)
+    public function setGrid(Grid $grid)
     {
         $this->grid = $grid;
 
