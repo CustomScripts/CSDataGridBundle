@@ -18,9 +18,9 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
     /**
      * An array containing the data of the current stack
      *
-     * @var array $_data
+     * @var array $elements
      */
-    protected $_data = array();
+    private $elements = array();
 
     /**
      * (non-phpdoc)
@@ -29,7 +29,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function offsetExists($offset)
     {
-        return isset($this->_data[$offset]);
+        return isset($this->elements[$offset]);
     }
 
     /**
@@ -40,9 +40,9 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
     public function offsetGet($offset)
     {
         if (is_int($offset)) {
-            return $this->_data[$offset];
+            return $this->elements[$offset];
         } elseif (is_string($offset)) {
-            foreach ($this->_data as $value) {
+            foreach ($this->elements as $value) {
                 if ((string) $value === $offset) {
                     return $value;
                 }
@@ -64,7 +64,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
     public function offsetSet($offset, $value)
     {
         if ($offset === null) {
-            $offset = $this->_data ? max(array_keys($this->_data)) : 0;
+            $offset = $this->elements ? max(array_keys($this->elements)) : 0;
         }
 
         if (!is_int($offset)) {
@@ -83,7 +83,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
             }
         } else {
 
-            $this->_data[$offset] = $value;
+            $this->elements[$offset] = $value;
         }
     }
 
@@ -95,7 +95,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
     public function offsetUnset($offset)
     {
         if ($this->offsetExists($offset)) {
-            unset($this->_data[$offset]);
+            unset($this->elements[$offset]);
         }
     }
 
@@ -106,7 +106,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function sort()
     {
-        ksort($this->_data);
+        ksort($this->elements);
 
         return $this;
     }
@@ -118,7 +118,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function count()
     {
-        return count($this->_data);
+        return count($this->elements);
     }
 
     /**
@@ -126,7 +126,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function next()
     {
-        return next($this->_data);
+        return next($this->elements);
     }
 
     /**
@@ -136,7 +136,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function current()
     {
-        return $this->_data[$this->key()];
+        return $this->elements[$this->key()];
     }
 
     /**
@@ -146,7 +146,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function key()
     {
-        return key($this->_data);
+        return key($this->elements);
     }
 
     /**
@@ -158,7 +158,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
     {
         $key = $this->key();
 
-        return isset($this->_data[$key]);
+        return isset($this->elements[$key]);
     }
 
     /**
@@ -166,6 +166,30 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function rewind()
     {
-        reset($this->_data);
+        reset($this->elements);
+    }
+
+    /**
+     * Returns the first element
+     *
+     * @return Ambigous <NULL, unknown>
+     */
+    public function first()
+    {
+    	$key = min($this->elements);
+
+    	return $this->offsetGet($key);
+    }
+
+    /**
+     * Returns the last element
+     *
+     * @return Ambigous <NULL, unknown>
+     */
+    public function last()
+    {
+    	$key = max($this->elements);
+
+    	return $this->offsetGet($key);
     }
 }
