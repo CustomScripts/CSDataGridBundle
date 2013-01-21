@@ -15,7 +15,7 @@ use CS\DataGridBundle\Grid\Collection;
 
 class CollectionTest extends \PHPUnit_Framework_TestCase
 {
-    protected $stack;
+    protected $collection;
 
     public function setUp()
     {
