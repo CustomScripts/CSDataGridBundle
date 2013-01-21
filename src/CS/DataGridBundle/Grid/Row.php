@@ -13,7 +13,7 @@ namespace CS\DataGridBundle\Grid;
 
 use Symfony\Component\Form\Exception;
 
-use CS\DataGridBundle\Grid\GridInterface;
+use CS\DataGridBundle\Grid\Grid;
 
 class Row implements \ArrayAccess
 {
@@ -67,7 +67,7 @@ class Row implements \ArrayAccess
      * @param  GridInterface $grid
      * @return Row
      */
-    public function setGrid(GridInterface $grid)
+    public function setGrid(Grid $grid)
     {
         $this->grid = $grid;
 
