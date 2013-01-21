@@ -13,7 +13,8 @@ namespace CS\DataGridBundle\Grid;
 
 use CS\DataGridBundle\Grid\GridInterface;
 use CS\DataGridBundle\Grid\Entity;
-
+use CS\DataGridBundle\Grid\Action\ActionCollection;
+use CS\DataGridBundle\Grid\Column\ColumnCollection;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Grid
@@ -31,6 +32,8 @@ class Grid
      * @var GridInterface $grid
      */
     protected $grid;
+
+    public static $columnCollection;
 
     /**
      * Constructor
@@ -128,14 +131,27 @@ class Grid
         return $this->container;
     }
 
-    public function columns()
+    public function getColumns($a = 0)
     {
-        return $this->grid->columns();
+    	if(!self::$columnCollection)
+    	{
+    		self::$columnCollection = new ColumnCollection;
+
+    		self::$columnCollection->addRecursive($this->data->getColumns());
+
+    		$this->grid->getColumns(self::$columnCollection);
+    	}
+
+    	return self::$columnCollection;
     }
 
-    public function actions()
+    public function getActions()
     {
-        return $this->grid->actions();
+    	$collection = new ActionCollection;
+
+    	$this->grid->getActions($collection);
+
+    	return $collection;
     }
 
     public function data()

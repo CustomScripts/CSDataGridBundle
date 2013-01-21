@@ -46,31 +46,17 @@ abstract class Base implements GridInterface
     /**
      * @return the column collection for rendering on the grid
      */
-    public function columns()
+    public function getColumns(ColumnCollection $collection)
     {
-        $collection = new ColumnCollection;
-
-        $collection->addRecursive($this->entity->getColumns());
-
-        if (method_exists($this, 'getColumns')) {
-            $this->getColumns($collection);
-        }
-
-        return $collection;
+        // not implemented
     }
 
     /**
      * @return the ActionCollection for rendering on the grid
      */
-    public function actions()
+    public function getActions(ActionCollection $collection)
     {
-        $collection = new ActionCollection;
-
-        if (method_exists($this, 'getActions')) {
-            $this->getActions($collection);
-        }
-
-        return $collection;
+    	// not implemented
     }
 
     /**

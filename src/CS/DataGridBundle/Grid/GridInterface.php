@@ -11,9 +11,14 @@
 
 namespace CS\DataGridBundle\Grid;
 
+use CS\DataGridBundle\Grid\Action\ActionCollection;
+use CS\DataGridBundle\Grid\Column\ColumnCollection;
+
 interface GridInterface
 {
-    public function setSource($source);
-
     public function getSource();
+
+    public function getActions(ActionCollection $collection);
+
+    public function getColumns(ColumnCollection $collection);
 }
