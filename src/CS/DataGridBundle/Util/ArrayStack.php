@@ -176,7 +176,6 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function first()
     {
-    	$key = min($this->elements);
 
     	return $this->offsetGet($key);
     }
@@ -188,7 +187,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function last()
     {
-    	$key = max($this->elements);
+    	$key = max(array_keys($this->elements));
 
     	return $this->offsetGet($key);
     }
