@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace CS\DataGridBundle\Tests\Grid\Column;
+namespace CS\DataGridBundle\Test\Grid\Column;
 
 use CS\DataGridBundle\Grid\Column\Column;
 use CS\DataGridBundle\Grid\Column\ColumnCollection;

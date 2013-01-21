@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace CS\DataGridBundle\Tests\Grid;
+namespace CS\DataGridBundle\Test\Grid;
 
 use CS\DataGridBundle\Grid\Collection;
 

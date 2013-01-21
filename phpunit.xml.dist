@@ -3,15 +3,16 @@
 <phpunit bootstrap="./vendor/autoload.php" colors="true">
     <testsuites>
         <testsuite name="CSDataGridBundle">
-            <directory suffix="Test.php">./src/CS/DataGridBundle/Tests</directory>
+            <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>./src/CS/DataGridBundle</directory>
+            <directory>./tests</directory>
             <exclude>
                 <directory>./src/CS/DataGridBundle/Resources</directory>
+                <directory>./src/CS/DataGridBundle/Tests</directory>
                 <directory>./vendor</directory>
             </exclude>
         </whitelist>

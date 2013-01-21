@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace CS\DataGridBundle\Tests\Util;
+namespace CS\DataGridBundle\Test\Util;
 use CS\DataGridBundle\Util\ArrayStack;
 
 class ArrayStackTest extends \PHPUnit_Framework_TestCase
