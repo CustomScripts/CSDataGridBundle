@@ -136,7 +136,7 @@ class Grid
         return $this->container;
     }
 
-    public function getColumns($a = 0)
+    public function getColumns()
     {
         if (!self::$columnCollection) {
             self::$columnCollection = new ColumnCollection;
