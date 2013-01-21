@@ -23,10 +23,10 @@ class ColumnCollection extends Collection
      */
     public function add($label, $priority = 0)
     {
-    	// TODO: get column  class from configuration
-    	$column = new Column ($label);
+        // TODO: get column  class from configuration
+        $column = new Column ($label);
 
-    	$this->offsetSet($priority, $column);
+        $this->offsetSet($priority, $column);
 
         return $this;
     }

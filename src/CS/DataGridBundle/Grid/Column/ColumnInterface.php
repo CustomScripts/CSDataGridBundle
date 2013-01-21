@@ -28,7 +28,6 @@ Interface ColumnInterface
      */
     public function callback($value);
 
-
     /**
      * Sets the callback on the current column
      *

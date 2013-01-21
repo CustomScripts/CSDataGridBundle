@@ -23,7 +23,7 @@ abstract class Base implements GridInterface
      *
      * @see CS\DataGridBundle\Grid.GridInterface::getSource()
      */
-    abstract function getSource();
+    abstract public function getSource();
 
     /**
      * Sets the datasource entity to the current grid
@@ -56,7 +56,7 @@ abstract class Base implements GridInterface
      */
     public function getActions(ActionCollection $collection)
     {
-    	// not implemented
+        // not implemented
     }
 
     /**

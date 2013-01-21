@@ -42,7 +42,7 @@ class Grid
      */
     public function __construct(ContainerInterface $container)
     {
-    	$this->container = $container;
+        $this->container = $container;
     }
 
     /**
@@ -60,7 +60,7 @@ class Grid
 
     public function getSource()
     {
-    	return $this->grid->getSource();
+        return $this->grid->getSource();
     }
 
     /**
@@ -138,25 +138,24 @@ class Grid
 
     public function getColumns($a = 0)
     {
-    	if(!self::$columnCollection)
-    	{
-    		self::$columnCollection = new ColumnCollection;
+        if (!self::$columnCollection) {
+            self::$columnCollection = new ColumnCollection;
 
-    		self::$columnCollection->addRecursive($this->data->getColumns());
+            self::$columnCollection->addRecursive($this->data->getColumns());
 
-    		$this->grid->getColumns(self::$columnCollection);
-    	}
+            $this->grid->getColumns(self::$columnCollection);
+        }
 
-    	return self::$columnCollection;
+        return self::$columnCollection;
     }
 
     public function getActions()
     {
-    	$collection = new ActionCollection;
+        $collection = new ActionCollection;
 
-    	$this->grid->getActions($collection);
+        $this->grid->getActions($collection);
 
-    	return $collection;
+        return $collection;
     }
 
     public function data()

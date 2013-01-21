@@ -20,7 +20,7 @@ class GridExtension extends Twig_Extension
      */
     public function setTemplating(ContainerInterface $container)
     {
-    	$this->container = $container;
+        $this->container = $container;
     }
 
     /**
