@@ -11,7 +11,7 @@
 
 namespace CS\DataGridBundle\Grid\Column;
 
-class Column
+class Column implements ColumnInterface
 {
     /**
      * The label of the column
@@ -41,7 +41,7 @@ class Column
     {
         $this->name = $name;
 
-        $this->setLabel($name)
+        $this->setLabel($name) // TODO: make label display like a title (E.G ucwords, remove underscores etc)
             ->setCallback($callback);
     }
 
