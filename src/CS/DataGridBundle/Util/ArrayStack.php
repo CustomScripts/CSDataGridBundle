@@ -176,6 +176,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function first()
     {
+    	$key = min(array_keys($this->elements));
 
     	return $this->offsetGet($key);
     }
@@ -190,5 +191,36 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
     	$key = max(array_keys($this->elements));
 
     	return $this->offsetGet($key);
+    }
+
+    /**
+     * Return an array with all the elements
+     *
+     * @return array
+     */
+    public function all()
+    {
+    	return $this->elements;
+    }
+
+    /**
+     * Moves an element to another position
+     *
+     * @param  string           $label
+     * @param  integer          $position
+     * @return $this
+     */
+    public function move($label, $position)
+    {
+    	if ($this->count() > 0) {
+    		foreach ($this->all() as $key => $data) {
+    			if (strtolower((string) $data) === strtolower($label)) {
+    				$this->offsetUnset($key);
+    				$this->offsetSet($position, $data);
+    			}
+    		}
+    	}
+
+    	return $this;
     }
 }
