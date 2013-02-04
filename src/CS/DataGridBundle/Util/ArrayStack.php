@@ -23,6 +23,13 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
     private $elements = array();
 
     /**
+     * Internal pointer for elements
+     *
+     * @var integer
+     */
+    private $position = 0;
+
+    /**
      * (non-phpdoc)
      *
      * @param mixed $offset
@@ -126,7 +133,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function next()
     {
-        return next($this->elements);
+    	$this->position++;
     }
 
     /**
@@ -136,7 +143,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function current()
     {
-        return $this->elements[$this->key()];
+        return $this->elements[$this->position];
     }
 
     /**
@@ -146,7 +153,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function key()
     {
-        return key($this->elements);
+        return $this->position;
     }
 
     /**
@@ -156,9 +163,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function valid()
     {
-        $key = $this->key();
-
-        return isset($this->elements[$key]);
+        return isset($this->elements[$this->position]);
     }
 
     /**
@@ -166,7 +171,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function rewind()
     {
-        reset($this->elements);
+        $this->position = 0;
     }
 
     /**
@@ -176,9 +181,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function first()
     {
-        $key = min(array_keys($this->elements));
-
-        return $this->offsetGet($key);
+        return $this->elemets[0];
     }
 
     /**
