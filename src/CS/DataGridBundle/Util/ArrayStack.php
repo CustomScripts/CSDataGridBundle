@@ -181,7 +181,7 @@ class ArrayStack implements \ArrayAccess, \Countable, \Iterator
      */
     public function first()
     {
-        return $this->elemets[0];
+        return $this->elements[0];
     }
 
     /**
