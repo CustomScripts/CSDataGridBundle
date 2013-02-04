@@ -24,7 +24,7 @@ class ActionCollection extends ArrayStack
      */
     public function add(Action $action)
     {
-        $this->_data[] = $action;
+        $this[] = $action;
 
         return $this;
     }
