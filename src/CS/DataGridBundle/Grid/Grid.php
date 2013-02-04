@@ -163,6 +163,18 @@ class Grid
         return $this->data->fetch();
     }
 
+    public function __call($method, $arguments)
+    {
+    	$attributes = $this->grid->getAttributes();
+
+    	if(isset($attributes[$method]))
+    	{
+    		return $attributes[$method];
+    	} else {
+    		throw new \InvalidArgumentException(sprintf('The attribute "%s" for grid %s does not exist', $method, get_class($this->grid)));
+    	}
+    }
+
     /*public function get($key)
     {
         return $this->getContainer()->get($key);

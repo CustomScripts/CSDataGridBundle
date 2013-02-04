@@ -1,3 +1,5 @@
+{# TODO : remove all bootstrap-specific classes so we are not dependant on bootstrap #}
+
 {% macro attributes(attrs) %}
     {% for key,attr in attrs %}
         {{ key }}="{{ attr }}"
@@ -7,9 +9,12 @@
 {% if grid.actions|length %}
     <div class="actions pull-right">
         {% for action in grid.actions %}
-            <a {{ _self.attributes(action.attributes) }} href="{{ action.action is not sameas('#') ? path(action.action) : '#' }}">{% if action['icon'] %}<i class="{{ action['icon'] }}"></i> {% endif %}{{ action.label|trans }}</a>
+            <a {{ _self.attributes(action.attributes) }} href="{{ action.action is not sameas('#') ? path(action.action) : '#' }}">
+            	{% if action['icon'] %}<i class="{{ action['icon'] }}"></i> {% endif %}{{ action.label|trans }}
+            </a>
 
             {% if action.events|length %}
+            {# Implement pure javascript solution so we are not dependent on jQuery #}
                 <script type="text/javascript">
 					$('#{{ action.attributes.id }}')
 						{% for event, content in action.events %}
@@ -28,7 +33,7 @@
 {% endif %}
 
 {% if grid.data|length > 0 %}
-    <table class="table table-bordered table-striped table-hover">
+    <table class="{{ grid.table.class }}">
 
     {% for col in grid.columns %}
     	<th>{{ col.label|title|trans }}</th>

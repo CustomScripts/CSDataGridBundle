@@ -21,4 +21,11 @@ interface GridInterface
     public function getActions(ActionCollection $collection);
 
     public function getColumns(ColumnCollection $collection);
+
+    /**
+     * Return an rray of attributes for the grid
+     *
+     * @return array
+     */
+    public function getAttributes();
 }

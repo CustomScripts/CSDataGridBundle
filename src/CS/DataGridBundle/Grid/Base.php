@@ -60,6 +60,16 @@ abstract class Base implements GridInterface
     }
 
     /**
+     * (non-PHPdoc)
+     *
+     * @see CS\DataGridBundle\Grid.GridInterface::getAttributes()
+     */
+    public function getAttributes()
+    {
+    	return array();
+    }
+
+    /**
      * Sets an instance of the container
      *
      * @param ContainerInterface $container
