@@ -36,7 +36,7 @@
 
     {% for data in grid.data %}
     	<tr>
-		    {% for col in grid.columns if data[col.name] is defined %}
+		    {% for col in grid.columns %}
 			    <td>{{ data[col.name]|raw }}</td>
 		    {% endfor %}
 	    </tr>
