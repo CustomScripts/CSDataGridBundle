@@ -21,6 +21,11 @@ use CS\DataGridBundle\Grid\Row;
 
 abstract class Entity implements \Countable, \Iterator
 {
+	/**
+	 * An instance of the container
+	 *
+	 * @var ContainerInterface
+	 */
     protected $container;
 
     protected $grid;
@@ -42,6 +47,13 @@ abstract class Entity implements \Countable, \Iterator
      */
     protected $source;
 
+    /**
+     * Constructor
+     *
+     * @param mixed $source
+     * @param Grid $grid
+     * @param ContainerInterface $container
+     */
     public function __construct($source, Grid $grid, ContainerInterface $container)
     {
         $this->setSource($source)
