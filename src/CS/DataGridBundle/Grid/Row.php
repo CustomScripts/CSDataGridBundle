@@ -12,7 +12,7 @@
 namespace CS\DataGridBundle\Grid;
 
 use Symfony\Component\Form\Exception;
-
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use CS\DataGridBundle\Grid\Grid;
 
 class Row implements \ArrayAccess
@@ -30,6 +30,8 @@ class Row implements \ArrayAccess
      */
     protected $grid;
 
+    protected $accessor;
+
     /**
      * (non-phpdoc)
      *
@@ -37,6 +39,8 @@ class Row implements \ArrayAccess
      */
     public function __construct($item = null)
     {
+    	$this->accessor = PropertyAccess::getPropertyAccessor();
+
         $this->setItem($item);
     }
 
@@ -87,63 +91,14 @@ class Row implements \ArrayAccess
     /**
      * Gets a property value in the current row
      *
-     * @param  string                                  $property
-     * @throws Exception\PropertyAccessDeniedException
-     * @throws Exception\InvalidPropertyException
-     * @throws Exception\NotValidException
+     * @param  string $property
      * @return mixed
      */
     protected function getValue($property)
     {
         $object = $this->getItem();
 
-        $camelProp = $this->camelize($property);
-        $reflClass = new \ReflectionObject($object);
-        $getter = 'get'.$camelProp;
-        $isser = 'is'.$camelProp;
-
-        if ($reflClass->hasMethod($getter)) {
-            if (!$reflClass->getMethod($getter)->isPublic()) {
-                throw new Exception\PropertyAccessDeniedException(sprintf('Method "%s()" is not public in class "%s"', $getter, $reflClass->getName()));
-            }
-
-            $value = $object->$getter();
-        } elseif ($reflClass->hasMethod($isser)) {
-            if (!$reflClass->getMethod($isser)->isPublic()) {
-                throw new Exception\PropertyAccessDeniedException(sprintf('Method "%s()" is not public in class "%s"', $isser, $reflClass->getName()));
-            }
-
-            $value = $object->$isser();
-        } elseif ($reflClass->hasMethod('__get')) {
-            // needed to support magic method __get
-            return $object->$property;
-        } elseif ($reflClass->hasProperty($property)) {
-            if (!$reflClass->getProperty($property)->isPublic()) {
-                throw new Exception\PropertyAccessDeniedException(sprintf('Property "%s" is not public in class "%s". Maybe you should create the method "%s()" or "%s()"?', $property, $reflClass->getName(), $getter, $isser));
-            }
-
-            $value = $object->$property;
-        } elseif (property_exists($object, $property)) {
-            // needed to support \stdClass instances
-            $value = $object->$property;
-        } else {
-            throw new Exception\InvalidPropertyException(sprintf('Neither property "%s" nor method "%s()" nor method "%s()" exists in class "%s"', $property, $getter, $isser, $reflClass->getName()));
-        }
-
-        if (is_object($value)) {
-            if ($value instanceof \DateTime) {
-                // TODO : update format to read from a central config
-                return $value->format('Y-m-d');
-            } elseif (method_exists($value, '__toString')) {
-                return (string) $value;
-            } else {
-                throw new Exception\NotValidException(sprintf('The value for %s in class %s needs to be an instance of the DateTime Object or should implement a __toString method', $property, $reflClass->getName()));
-            }
-        } elseif (is_string($value) || is_int($value) || is_null($value)) {
-            return $value;
-        } else {
-            throw new Exception\NotValidException(sprintf('The value for %s in class %s needs to either return a string, DateTime Object, or object that implements a __toString method', $property, $reflClass->getName()));
-        }
+        return $this->accessor->getValue($object, $property);
     }
 
     /**
