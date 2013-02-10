@@ -16,7 +16,8 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.3.3",,
+        "apy/datagrid-bundle" : "@stable",
         "customscripts/core-bundle": "dev-master"
     },
     "minimum-stability": "dev",

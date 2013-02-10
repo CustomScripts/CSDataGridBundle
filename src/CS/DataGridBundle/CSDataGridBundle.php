@@ -15,4 +15,12 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class CSDataGridBundle extends Bundle
 {
+	/**
+	 * (non-PHPdoc)
+	 * @see Symfony\Component\HttpKernel\Bundle.Bundle::getParent()
+	 */
+	public function getParent()
+    {
+        return 'APYDataGridBundle';
+    }
 }
