@@ -122,7 +122,10 @@ class Row implements \ArrayAccess
         try {
             $val = $this->getValue($offset);
         } catch (\Exception $e) {
-            return false;
+
+        	$cols = $this->getGrid()->getColumns();
+
+        	return is_object($cols[$offset]);
         }
 
         return true;

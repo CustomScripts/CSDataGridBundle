@@ -98,7 +98,7 @@ class Collection extends ArrayStack
     {
         if (is_array($data) && !empty($data)) {
             foreach ($data as $key => $column) {
-                $this->add($column, $key);
+                $this->add($column, null, $key);
             }
         }
 

@@ -21,10 +21,10 @@ class ColumnCollection extends Collection
      * @param string  $label
      * @param integer $priority
      */
-    public function add($label, $priority = 0)
+    public function add($label, $callback = null, $priority = 0)
     {
         // TODO: get column  class from configuration
-        $column = new Column ($label);
+        $column = new Column ($label, $callback);
 
         $this->offsetSet($priority, $column);
 

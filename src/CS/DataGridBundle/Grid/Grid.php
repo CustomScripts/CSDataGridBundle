@@ -33,7 +33,7 @@ class Grid
      */
     protected $grid;
 
-    public static $columnCollection;
+    public $columnCollection;
 
     /**
      * Constructor
@@ -122,7 +122,7 @@ class Grid
     {
         $this->grid = $grid;
 
-        //$grid->setContainer($this->getContainer());
+        $grid->setContainer($this->getContainer());
         return $this;
     }
 
@@ -136,17 +136,22 @@ class Grid
         return $this->container;
     }
 
+    protected function fetchColumns()
+    {
+    	if(!$this->columnCollection instanceof ColumnCollection)
+    	{
+    		$this->columnCollection = new ColumnCollection;
+
+    		$this->columnCollection->addRecursive($this->data->getColumns());
+
+        	$this->grid->getColumns($this->columnCollection);
+    	}
+    }
+
     public function getColumns()
     {
-        if (!self::$columnCollection) {
-            self::$columnCollection = new ColumnCollection;
-
-            self::$columnCollection->addRecursive($this->data->getColumns());
-
-            $this->grid->getColumns(self::$columnCollection);
-        }
-
-        return self::$columnCollection;
+    	$this->fetchColumns();
+        return $this->columnCollection;
     }
 
     public function getActions()
