@@ -3,13 +3,13 @@ parameters:
     cs_data_grid.grid.class: CS\DataGridBundle\Grid\Grid
 
 services:
-    cs_data_grid.twig.grid:
-        class: %cs_data_grid.twig.grid.class%
-        calls:
-            - [ setTemplating, [ @service_container ] ]
-        tags:
-            - { name: twig.extension }
-
+    #cs_data_grid.twig.grid:
+        #class: %cs_data_grid.twig.grid.class%
+        #calls:
+            #- [ setTemplating, [ @service_container ] ]
+        #tags:
+            #- { name: twig.extension }
+            
     cs_data_grid.grid:
         class: %cs_data_grid.grid.class%
         arguments: [@service_container]
